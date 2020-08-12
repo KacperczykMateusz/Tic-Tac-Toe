@@ -9,15 +9,16 @@ def field():
     print('-' * 9)
 
 
+turn = 'X'
 while ' ' in cells:
-    turn = 'X'
+
     field()
     x, y = input('Enter the coordinates: > ').split()
     if not (x.isdigit() or y.isdigit()):
         print('You should enter numbers!')
     elif not (1 <= int(x) <= 3 and 1 <= int(y) <= 3):
         print('Coordinates should be from 1 to 3!')
-    elif cells[3 - (int(y)) * 3 + (int(x)) - 1] != ' ':
+    elif cells[abs(int(y) - 3) * 3 + int(x) - 1] != ' ':
         print('This cell is occupied! Choose another one!')
     else:
         if turn == 'X':
@@ -30,8 +31,14 @@ while ' ' in cells:
         lines = [cells[:3], cells[3:6], cells[6:], cells[0:9:3],
                  cells[1:9:3], cells[2:9:3], cells[0:9:4], cells[2:7:2]]
         if ['O', 'O', 'O'] in lines:
+            field()
             print('O wins')
+            break
         elif ['X', 'X', 'X'] in lines:
+            field()
             print('X wins')
+            break
         elif ' ' not in cells:
+            field()
             print('Draw')
+            break
